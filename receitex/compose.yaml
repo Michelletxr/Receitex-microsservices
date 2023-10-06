@@ -1,0 +1,36 @@
+services:
+  receitex_db:
+    image: postgres:latest
+    environment:
+        POSTGRES_DB: receitex_db
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+    ports:
+      - 5432
+    networks:
+      - receitex
+  receitex_app:
+    container_name: receitex_app
+    build: .
+    ports:
+      - 8081:8081
+    environment:
+      eureka.client.serviceUrl.defaultzone: http://receitex_register:8761/eureka
+      spring.datasource.driver-class-name: org.postgresql.Driver
+      spring.datasource.username: postgres
+      spring.datasource.password: postgres
+      spring.datasource.url: jdbc:postgresql://receitex_db:5432/receitex_db
+      server.port: 8081
+    restart: unless-stopped
+    depends_on:
+      - receitex_db
+    networks:
+      - receitex_microsservices
+      - receitex
+
+networks:
+  receitex_microsservices:
+    name: receitex_microsservices_net
+    external: true
+  receitex:
+    name: receitex_net

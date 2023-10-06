@@ -1,0 +1,30 @@
+version: '3.7'
+services:
+  receitex_register:
+    container_name: receitex_register
+    build: ./receitex_register
+    ports:
+      - 8761:8761
+    environment:
+      server.port: 8761
+    restart: unless-stopped
+    networks:
+      - receitex_microsservices
+
+  receitex-gateway:
+    container_name: receitex_gateway
+    build: ./receitex_gateway
+    ports:
+      - 8080:8080
+    depends_on:
+      - receitex_register
+    environment:
+      eureka.client.serviceUrl.defaultzone: http://receitex_register:8761/eureka
+    restart: unless-stopped
+    networks:
+      - receitex_microsservices
+
+networks:
+  receitex_microsservices:
+    name: receitex_microsservices_net
+
