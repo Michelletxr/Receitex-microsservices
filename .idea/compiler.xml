@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="receitex" />
+        <module name="receitex_gateway" />
+        <module name="receitex_notification" />
+        <module name="receitex_auth" />
+        <module name="receitex_register" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="receitex" target="17" />
+      <module name="receitex_auth" target="17" />
+      <module name="receitex_gateway" target="17" />
+      <module name="receitex_notification" target="17" />
+      <module name="receitex_register" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="receitex" options="-parameters" />
+      <module name="receitex_auth" options="-parameters" />
+      <module name="receitex_gateway" options="-parameters" />
+      <module name="receitex_notification" options="-parameters" />
+      <module name="receitex_register" options="-parameters" />
+    </option>
+  </component>
+</project>

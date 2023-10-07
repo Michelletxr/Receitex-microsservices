@@ -19,7 +19,7 @@ services:
     depends_on:
       - receitex_register
     environment:
-      eureka.client.serviceUrl.defaultzone: http://receitex_register:8761/eureka
+      eureka.client.serviceUrl.defaultzone: http://receitex-register:8761/eureka
     restart: unless-stopped
     networks:
       - receitex_microsservices

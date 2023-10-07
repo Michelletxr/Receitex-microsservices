@@ -15,7 +15,10 @@ services:
     ports:
       - 8081:8081
     environment:
-      eureka.client.serviceUrl.defaultzone: http://receitex_register:8761/eureka
+      eureka.instance.preferIpAddress: true
+      eureka.client.fetchRegistry: true
+      eureka.client.registerWithEureka: true
+      eureka.client.serviceUrl.defaultzone: http://localhost:8761/eureka
       spring.datasource.driver-class-name: org.postgresql.Driver
       spring.datasource.username: postgres
       spring.datasource.password: postgres
