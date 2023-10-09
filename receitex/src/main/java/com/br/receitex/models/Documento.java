@@ -2,9 +2,10 @@ package com.br.receitex.models;
 
 import jakarta.persistence.*;
 
-@Entity
-@Table(name="documento", schema = "public")
-public abstract class Documento {
+import java.io.Serializable;
+
+@MappedSuperclass
+public abstract class Documento implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
