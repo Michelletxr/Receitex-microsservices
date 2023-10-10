@@ -11,12 +11,14 @@ public class ReceitaService{
     @Autowired
     ReceitaRepository repository;
 
+
     public Documento createDocumento(Receita data){
         Receita receita = new Receita();
         String titulo = data.getTitulo();
         receita.setTitulo(titulo);
         String descricao = data.getDescricao();
         receita.setDescricao(descricao);
+        repository.save(receita);
         return receita;
     }
 }

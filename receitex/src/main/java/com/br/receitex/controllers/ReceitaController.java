@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("/receita")
+//@RequestMapping("/receita")
 @RestController
 public class ReceitaController {
 
     @Autowired
     ReceitaService receitaService;
-    @PostMapping
+    @PostMapping("/receita")
     public Documento createDocumento(@RequestBody Receita receita){
 
        return receitaService.createDocumento(receita);

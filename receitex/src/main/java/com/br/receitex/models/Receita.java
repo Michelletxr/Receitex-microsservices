@@ -1,13 +1,13 @@
 package com.br.receitex.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.Date;
 
 @Entity(name = "receita")
 @Table(name="receita", schema = "public")
 public class Receita extends Documento {
+
     private Long codido;
     private Date emissao;
     private Date vencimento;
