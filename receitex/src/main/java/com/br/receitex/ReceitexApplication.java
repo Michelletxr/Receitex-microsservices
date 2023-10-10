@@ -1,4 +1,4 @@
-package com.br.receitex.application;
+package com.br.receitex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
