@@ -38,4 +38,9 @@ public class ReceitaController {
     public void deleteReceita(@RequestBody Receita receita){
         receitaService.deleteReceita(receita);
     }
+
+    @PostMapping("update_receita")
+    public Receita updateReceita(@RequestParam Long id, @RequestBody Receita receita_nova){
+        return receitaService.updateReceita(id, receita_nova);
+    }
 }

@@ -68,4 +68,25 @@ public class ReceitaService{
     public void deleteReceita(Receita receita){
         repository.delete(receita);
     }
+
+    public Receita updateReceita(Long id, Receita receita_nova){
+        Optional<Receita> receita_antiga = repository.findById(id);
+        if(receita_antiga.isPresent()){
+            Receita receita = receita_antiga.get();
+
+            if(receita_nova.getTitulo() != null) receita.setTitulo(receita_nova.getTitulo());
+            if(receita_nova.getDescricao() != null) receita.setDescricao(receita_nova.getDescricao());
+            if(receita_nova.getVencimento() != null) receita.setVencimento(receita_nova.getVencimento());
+            if(receita_nova.getNome_medico() != null) receita.setNome_medico(receita_nova.getNome_medico());
+            if(receita_nova.getNome_paciente() != null) receita.setNome_paciente(receita_nova.getNome_paciente());
+
+            repository.save(receita);
+            return receita;
+        }
+        else{
+            return null;
+        }
+    }
+
+
 }
