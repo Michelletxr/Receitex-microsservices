@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Base64;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
@@ -42,5 +44,20 @@ public class ReceitaService{
         receita.setCodido(this.gerarCodigo());
         repository.save(receita);
         return receita;
+    }
+
+    public Receita getDocumentoById(Long id){
+        Optional<Receita> receita =repository.findById(id);
+        if(receita.isPresent()){
+            return receita.get();
+        }
+        else{
+            return null;
+        }
+
+    }
+
+    public List<Receita> getAllDocumentos(){
+        return repository.findAll();
     }
 }
