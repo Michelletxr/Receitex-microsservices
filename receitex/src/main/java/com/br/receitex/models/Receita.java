@@ -8,8 +8,31 @@ import java.util.Date;
 @Table(name="receita", schema = "public")
 public class Receita extends Documento {
 
-    private Long codido;
+    private String codido;
     private Date emissao;
     private Date vencimento;
 
+    public String getCodido() {
+        return codido;
+    }
+
+    public void setCodido(String codido) {
+        this.codido = codido;
+    }
+
+    public Date getEmissao() {
+        return emissao;
+    }
+
+    public void setEmissao(Date emissao) {
+        this.emissao = emissao;
+    }
+
+    public Date getVencimento() {
+        return vencimento;
+    }
+
+    public void setVencimento(Date vencimento) {
+        this.vencimento = vencimento;
+    }
 }

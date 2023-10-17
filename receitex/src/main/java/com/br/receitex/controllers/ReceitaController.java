@@ -17,7 +17,6 @@ public class ReceitaController {
     ReceitaService receitaService;
     @PostMapping("/receita")
     public Documento createDocumento(@RequestBody Receita receita){
-
        return receitaService.createDocumento(receita);
     }
 }
