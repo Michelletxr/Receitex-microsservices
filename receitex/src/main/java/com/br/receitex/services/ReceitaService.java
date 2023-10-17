@@ -60,4 +60,12 @@ public class ReceitaService{
     public List<Receita> getAllDocumentos(){
         return repository.findAll();
     }
+
+    public void deleteReceitaById(Long id){
+        repository.deleteById(id);
+    }
+
+    public void deleteReceita(Receita receita){
+        repository.delete(receita);
+    }
 }

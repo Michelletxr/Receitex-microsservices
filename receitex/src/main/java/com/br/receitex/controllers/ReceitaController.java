@@ -28,4 +28,14 @@ public class ReceitaController {
     public List<Receita> getAllDocumentos(){
         return receitaService.getAllDocumentos();
     }
+
+    @DeleteMapping("receita")
+    public void deleteReceitaById(@RequestParam Long id){
+        receitaService.deleteReceitaById(id);
+    }
+
+    @DeleteMapping("deletar_receita")
+    public void deleteReceita(@RequestBody Receita receita){
+        receitaService.deleteReceita(receita);
+    }
 }
