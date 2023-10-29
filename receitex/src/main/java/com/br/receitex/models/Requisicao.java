@@ -11,4 +11,12 @@ import java.util.Date;
 public class Requisicao extends Documento{
 
     private Date emissao;
+
+    public Date getEmissao() {
+        return emissao;
+    }
+
+    public void setEmissao(Date emissao) {
+        this.emissao = emissao;
+    }
 }
