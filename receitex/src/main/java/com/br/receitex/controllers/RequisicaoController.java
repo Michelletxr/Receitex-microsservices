@@ -42,6 +42,7 @@ public class RequisicaoController {
         requisicaoService.deleteRequisicao(requisicao);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("update_requisicao")
     public Requisicao updateReceita(@RequestParam Long id, @RequestBody Requisicao requisicao_nova){
         System.out.println("Editando requisicao");

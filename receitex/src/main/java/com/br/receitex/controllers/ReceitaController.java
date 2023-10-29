@@ -43,6 +43,7 @@ public class ReceitaController {
         receitaService.deleteReceita(receita);
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("update_receita")
     public Receita updateReceita(@RequestParam Long id, @RequestBody Receita receita_nova){
         return receitaService.updateReceita(id, receita_nova);
