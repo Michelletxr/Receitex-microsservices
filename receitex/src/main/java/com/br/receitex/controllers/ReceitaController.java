@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RequestMapping("/receita")
 @RestController
 public class ReceitaController {
 
@@ -17,7 +16,7 @@ public class ReceitaController {
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/receita")
     public Documento createDocumento(@RequestBody Receita receita){
-       return receitaService.createDocumento(receita);
+        return receitaService.createDocumento(receita);
     }
 
     @CrossOrigin(origins = "http://localhost:5173")
