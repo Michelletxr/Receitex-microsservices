@@ -1,4 +1,4 @@
-package com.br.receitex_auth.model;
+package com.br.receitex_auth.models;
 
 public enum UserRole {
     PATIENT("patient"),

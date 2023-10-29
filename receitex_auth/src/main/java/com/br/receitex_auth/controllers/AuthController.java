@@ -1,9 +1,10 @@
-package com.br.receitex_auth.controller;
+package com.br.receitex_auth.controllers;
 
 import com.br.receitex_auth.config.TokenConfig;
-import com.br.receitex_auth.model.User;
-import com.br.receitex_auth.model.UserRole;
-import com.br.receitex_auth.repository.UserRepository;
+import com.br.receitex_auth.models.AuthModel;
+import com.br.receitex_auth.models.UserBaseModel;
+import com.br.receitex_auth.repositories.AuthRepository;
+import com.br.receitex_auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,33 +26,37 @@ public class AuthController {
 
     @Autowired
     private TokenConfig tokenConfig;
-
     @Autowired
-    private UserRepository repository;
-
-    record AUthDTO(String username, String password){}
+    private AuthRepository authRepository;
+    @Autowired
+    private UserService userService;
+    record AuthRequestDTO(String username, String password){}
+    record AuthResponseDTO(UUID auth_id, String username){}
     record UserLoginDTO(String token){}
-    record UserRequestDTO(String username, String password, UserRole role){}
-    record UserResponsetDTO(UUID id, UserRole role_user){}
 
     //gerar token de acesso
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AUthDTO auth){
+    public ResponseEntity login(@RequestBody AuthRequestDTO auth){
         var usernamePassword = new UsernamePasswordAuthenticationToken(auth.username(), auth.password());
         var authData = authenticationManager.authenticate(usernamePassword);
-        var token = tokenConfig.generateToken((User) authData.getPrincipal());
+        var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal());
         return ResponseEntity.ok(new UserLoginDTO(token));
     }
 
-    //criar usuário
+    //criar usuário e autentificar
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody UserRequestDTO registerData){
+    public ResponseEntity register(@RequestBody UserService.UserRequestDTO registerData){
         // validar username
-        if(repository.findByUserName(registerData.username) != null) return ResponseEntity.badRequest().build();
+        if(authRepository.findByUserName(registerData.user_name()) != null) return ResponseEntity.badRequest().build();
+
         // encriptografar senha
         String encryptedPassword = new BCryptPasswordEncoder().encode(registerData.password());
-        User newUser = new User(registerData.username(), encryptedPassword, registerData.role());
-        repository.save(newUser);
-        return ResponseEntity.ok(new UserResponsetDTO(newUser.getId(), newUser.getUserRole()));
+
+        //salvar usuario
+        UserBaseModel newUser = userService.saveUser(registerData);
+
+        //salvar autentificação do usuario
+        AuthModel auth = authRepository.save(new AuthModel(registerData.user_name(), encryptedPassword, newUser.getId()));
+        return ResponseEntity.ok(new AuthResponseDTO(auth.getId(), auth.getUsername()));
     }
 }

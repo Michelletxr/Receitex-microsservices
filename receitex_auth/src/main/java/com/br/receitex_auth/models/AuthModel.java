@@ -1,4 +1,4 @@
-package com.br.receitex_auth.model;
+package com.br.receitex_auth.models;
 
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -12,22 +12,23 @@ import java.util.Collection;
 import java.util.UUID;
 @Entity
 @NoArgsConstructor
-@ToString(exclude = "password")
-@Table(name = "user", schema = "public")
+@ToString(exclude = {"password"})
+@Table(name = "auth", schema = "public")
 @Data
-public class User implements UserDetails {
-
+public class AuthModel implements UserDetails {
+    //informações de  autentificação
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     UUID id;
     String userName;
     String password;
-    UserRole userRole;
+    //referencia para id do usuario
+    UUID user_id;
     @Builder
-    public User(String userName, String password, UserRole role){
+    public AuthModel(String userName, String password, UUID user_id){
         this.userName = userName;
         this.password = password;
-        this.userRole = role;
+        this.user_id = user_id;
     }
 
     @Override

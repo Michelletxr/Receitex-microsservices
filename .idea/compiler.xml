@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="receitex" />
-        <module name="receitex_gateway" />
         <module name="receitex_notification" />
+        <module name="receitex_gateway" />
         <module name="receitex_auth" />
         <module name="receitex_register" />
       </profile>
