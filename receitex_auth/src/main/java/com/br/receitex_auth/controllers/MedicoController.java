@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequestMapping("/medico")
 @RestController
@@ -16,21 +17,23 @@ public class MedicoController {
 
     @Autowired
     private MedicoService medicoService;
-    @PostMapping("/medico")
-    public ResponseEntity<Medico> createMedico(@RequestBody Medico medico){
+    @PostMapping()
+    public ResponseEntity createMedico(@RequestBody MedicoService.MedicoRequestDTO medico){
+        System.out.println("Teste");System.out.println(medico);
+
         Medico m = medicoService.createMedico(medico);
-                return ResponseEntity.ok(m);
+        return ResponseEntity.ok(m);
     }
 
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Medico> get(@PathVariable("id") Long id) {
+    public ResponseEntity<Medico> get(@PathVariable("id") UUID id) {
         Optional<Medico> p = medicoService.findOne(id);
         return ResponseEntity.of(p);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Boolean> delete (@PathVariable("id") Long id){
+    public ResponseEntity<Boolean> delete (@PathVariable("id") UUID id){
     Boolean b = medicoService.deleteEntity(id);
 
     if(!b){
@@ -40,7 +43,7 @@ public class MedicoController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Medico> update(@RequestBody() Medico update, @PathVariable("id") Long id) {
+    public ResponseEntity<Medico> update(@RequestBody() Medico update, @PathVariable("id") UUID id) {
         Optional<Medico> p = medicoService.updateEntity(update, id);
         return ResponseEntity.of(p);
     }
