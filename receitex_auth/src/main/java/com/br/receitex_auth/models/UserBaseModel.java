@@ -7,7 +7,7 @@ import java.util.UUID;
 
 //@MappedSuperclass
 @Data
-@Entity(name="user")
+@Entity(name="users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="role_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class UserBaseModel {

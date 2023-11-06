@@ -20,7 +20,7 @@ public class MedicoService {
     @Autowired
     private MedicoRepository repository;
 
-    public record MedicoRequestDTO( String first_name,String last_name, UserRole role){}
+    public record MedicoRequestDTO( String first_name, String last_name, UserRole role){}
 
     public List<Medico> getMedicos(){
 
@@ -29,13 +29,11 @@ public class MedicoService {
 
     public Medico createMedico (MedicoRequestDTO medico)
     {
-    Medico newMedico = null;
-        System.out.println("Chegou aqui01");
+        Medico newMedico = null;
 
         if(medico.role == UserRole.DOCTOR){
-            newMedico = repository.save(new Medico(medico.first_name,medico.last_name));
+            newMedico = repository.save(new Medico(medico.first_name, medico.last_name));
         }
-        System.out.println("Chegou aqui02");
         return newMedico;
     }
 
