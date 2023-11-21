@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class PacienteService {
     @Autowired
     PacienteRepository repository;
-    public record PacienteRequestDTO( String first_name, String last_name){}
+    public record PacienteRequestDTO(String first_name, String last_name){}
 
     public Paciente createPaciente (PacienteRequestDTO paciente)
     {

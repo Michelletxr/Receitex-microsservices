@@ -1,16 +1,20 @@
 package com.br.receitex_auth.models;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Entity(name = "pacientes")
 @DiscriminatorValue("paciente")
+
 public class Paciente extends UserBaseModel{
-    @ManyToMany(mappedBy = "patients")
+    @ManyToMany
+    @JoinTable(name="medico_paciente",
+            joinColumns={@JoinColumn(name="paciente_id")},
+            inverseJoinColumns={@JoinColumn(name="medico_id")})
     List<Medico> doctors;
 
     @Builder

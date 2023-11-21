@@ -27,11 +27,10 @@ public class UserService {
                 newUser = medicoService.createMedico(new MedicoService.MedicoRequestDTO(user.first_name, user.last_name));
                 break;
             case PHARM: break;
-            case PATIENT: pacienteService.createPaciente(new PacienteService.PacienteRequestDTO(user.first_name, user.last_name));
+            case PATIENT: newUser = pacienteService.createPaciente(new PacienteService.PacienteRequestDTO(user.first_name, user.last_name));
             break;
 
         }
-
         return newUser;
 
     }

@@ -25,6 +25,11 @@ public class SecurityConfig {
     //@Autowired
     //SecurityFilter securityFilter;
     //adicionar roles e permissões
+    private static final String[] AUTH_URLS = {
+            "/auth/**",
+            "/medico/**",
+            "/paciente/**",
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -32,9 +37,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/medico").permitAll()
+                        .requestMatchers(AUTH_URLS).permitAll()
                         .anyRequest().authenticated()
                 )
                 //.addFilterBefore(new UsernamePasswordAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)

@@ -9,11 +9,8 @@ import java.util.List;
 @DiscriminatorValue("medico")
 public class Medico extends UserBaseModel {
 
-    //pacientes
-    @ManyToMany
-    @JoinTable(name="MEDICO_PACIENTE",
-            joinColumns={@JoinColumn(name="medico_id")},
-            inverseJoinColumns={@JoinColumn(name="paciente_id")})
+    //dono do relacionamento
+    @ManyToMany(mappedBy = "doctors")
     private List<Paciente> patients;
     @Builder
     public Medico(){
