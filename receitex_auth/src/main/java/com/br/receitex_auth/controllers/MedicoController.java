@@ -34,12 +34,12 @@ public class MedicoController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Boolean> delete (@PathVariable("id") UUID id){
-    Boolean b = medicoService.deleteEntity(id);
+    Boolean isDelet = medicoService.deleteEntity(id);
 
-    if(!b){
-        return new ResponseEntity<Boolean>(b, HttpStatus.NOT_FOUND);
+    if(!isDelet){
+        return new ResponseEntity<Boolean>(isDelet, HttpStatus.NOT_FOUND);
     }
-    return ResponseEntity.ok(b);
+    return ResponseEntity.ok(isDelet);
     }
 
     @PutMapping("/update/{id}")
