@@ -2,16 +2,18 @@ package com.br.receitex_auth.models;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
 @Entity(name="medicos")
 @DiscriminatorValue("medico")
 public class Medico extends UserBaseModel {
 
     //dono do relacionamento
     @ManyToMany(mappedBy = "doctors")
-    private List<Paciente> patients;
+    List<Paciente> patients;
+
     @Builder
     public Medico(){
         this.role = UserRole.DOCTOR;

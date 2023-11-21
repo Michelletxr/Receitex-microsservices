@@ -2,6 +2,7 @@ package com.br.receitex_auth.service;
 
 
 import com.br.receitex_auth.models.Medico;
+import com.br.receitex_auth.models.Paciente;
 import com.br.receitex_auth.models.UserRole;
 import com.br.receitex_auth.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,11 @@ public class MedicoService {
 
     @Autowired
     private MedicoRepository repository;
+    @Autowired
+    private PacienteService pacienteService;
 
     public record MedicoRequestDTO( String first_name, String last_name){}
+    public record AddPacienteDTO(UUID paciente_id, UUID medico_id){}
 
     public List<Medico> getMedicos(){
 
@@ -56,5 +60,17 @@ public class MedicoService {
         }
         repository.save(p.get());
         return p;
+    }
+
+    public Medico addPatient(AddPacienteDTO addPacienteDTO){
+        Optional<Paciente> p = pacienteService.findOne(addPacienteDTO.paciente_id);
+        Optional<Medico> m = this.findOne(addPacienteDTO.medico_id);
+
+        List<Paciente> patientsList =  m.get().getPatients();
+        patientsList.add(p.get());
+        m.get().setPatients(patientsList);
+        Medico medicoUpdate = repository.save(m.get());
+
+        return medicoUpdate;
     }
 }
