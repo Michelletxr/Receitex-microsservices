@@ -2,6 +2,8 @@ package com.br.receitex_auth.controllers;
 
 import com.br.receitex_auth.models.Medico;
 import com.br.receitex_auth.models.Paciente;
+import com.br.receitex_auth.repositories.MedicoRepository;
+import com.br.receitex_auth.repositories.PacienteRepository;
 import com.br.receitex_auth.service.MedicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,10 +11,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @RequestMapping("/medico")
 @RestController
@@ -20,9 +19,12 @@ public class MedicoController {
 
     @Autowired
     private MedicoService medicoService;
+    @Autowired
+    private MedicoRepository medicoRepository;
+    @Autowired
+    private PacienteRepository pacienteRepository;
     @PostMapping()
     public ResponseEntity createMedico(@RequestBody MedicoService.MedicoRequestDTO medico){
-        System.out.println("Teste");System.out.println(medico);
 
         Medico m = medicoService.createMedico(medico);
         return ResponseEntity.ok(m);
@@ -40,9 +42,9 @@ public class MedicoController {
     }
 
     @GetMapping("/listaPacientes/{id}")
-    public ResponseEntity<List<Paciente>> listPatientsByDoctor(@PathVariable("id") UUID id) {
+    public ResponseEntity<Set<Paciente>> listPatientsByDoctor(@PathVariable("id") UUID id) {
         Optional<Medico> p = medicoService.findOne(id);
-        return ResponseEntity.of(Optional.ofNullable(p.get().getPatients()));
+        return ResponseEntity.of(Optional.ofNullable((HashSet<Paciente>) p.get().getPatients()));
     }
 
     @DeleteMapping("/delete/{id}")
@@ -61,8 +63,10 @@ public class MedicoController {
         return ResponseEntity.of(p);
     }
 
-    @PutMapping(value = "addPaciente")
+    @PutMapping(value = "/addPaciente")
     public ResponseEntity<Medico> addPaciente(@RequestBody MedicoService.AddPacienteDTO addPacienteDTO ){
-        return ResponseEntity.ok(medicoService.addPatient(addPacienteDTO));
+        Optional<Paciente> p = pacienteRepository.findById(addPacienteDTO.paciente_id());
+        medicoService.adicionarPacienteAoMedico(addPacienteDTO.medico_id(), addPacienteDTO.paciente_id());
+        return ResponseEntity.ok(new Medico());
     }
 }

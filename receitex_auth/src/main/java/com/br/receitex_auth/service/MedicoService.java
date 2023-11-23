@@ -5,15 +5,15 @@ import com.br.receitex_auth.models.Medico;
 import com.br.receitex_auth.models.Paciente;
 import com.br.receitex_auth.models.UserRole;
 import com.br.receitex_auth.repositories.MedicoRepository;
+import com.br.receitex_auth.repositories.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class MedicoService {
@@ -22,7 +22,8 @@ public class MedicoService {
     private MedicoRepository repository;
     @Autowired
     private PacienteService pacienteService;
-
+    @Autowired
+    PacienteRepository pacienteRepository;
     public record MedicoRequestDTO( String first_name, String last_name){}
     public record AddPacienteDTO(UUID paciente_id, UUID medico_id){}
 
@@ -62,15 +63,18 @@ public class MedicoService {
         return p;
     }
 
-    public Medico addPatient(AddPacienteDTO addPacienteDTO){
-        Optional<Paciente> p = pacienteService.findOne(addPacienteDTO.paciente_id);
-        Optional<Medico> m = this.findOne(addPacienteDTO.medico_id);
 
-        List<Paciente> patientsList =  m.get().getPatients();
-        patientsList.add(p.get());
-        m.get().setPatients(patientsList);
-        Medico medicoUpdate = repository.save(m.get());
+    @Transactional
+    public void adicionarPacienteAoMedico(UUID medicoId, UUID pacienteId) {
+        Medico medico = repository.findById(medicoId)
+                .orElseThrow(() -> new IllegalArgumentException("Médico não encontrado com o ID: " + medicoId));
 
-        return medicoUpdate;
+        Paciente paciente = pacienteRepository.findById(pacienteId)
+                .orElseThrow(() -> new IllegalArgumentException("Paciente não encontrado com o ID: " + pacienteId));
+
+        paciente.getDoctors().add(medico);
+        pacienteRepository.save(paciente);
+        //System.out.println("resultado DENTRO DO SERVICE" + paciente.getFirstName() + " " + paciente.getDoctors());
+
     }
 }

@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Entity(name = "pacientes")
@@ -15,7 +16,7 @@ public class Paciente extends UserBaseModel{
     @JoinTable(name="medico_paciente",
             joinColumns={@JoinColumn(name="paciente_id")},
             inverseJoinColumns={@JoinColumn(name="medico_id")})
-    List<Medico> doctors;
+    public Set<Medico> doctors;
 
     @Builder
     public Paciente(){

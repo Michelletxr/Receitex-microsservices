@@ -29,4 +29,8 @@ public class PacienteService {
     public Optional<Paciente> findOne(UUID pacientId) {
         return repository.findById(pacientId);
     }
+
+    public Paciente updateEntity(Paciente update) {
+        return repository.save(update);
+    }
 }
