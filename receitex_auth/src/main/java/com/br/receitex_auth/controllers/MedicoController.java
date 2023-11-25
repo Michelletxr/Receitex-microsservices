@@ -23,6 +23,7 @@ public class MedicoController {
     private MedicoRepository medicoRepository;
     @Autowired
     private PacienteRepository pacienteRepository;
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping()
     public ResponseEntity createMedico(@RequestBody MedicoService.MedicoRequestDTO medico){
 
