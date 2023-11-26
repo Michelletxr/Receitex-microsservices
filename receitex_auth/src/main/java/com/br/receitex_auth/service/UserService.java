@@ -1,9 +1,7 @@
 package com.br.receitex_auth.service;
 
-import com.br.receitex_auth.models.Medico;
 import com.br.receitex_auth.models.UserBaseModel;
 import com.br.receitex_auth.models.UserRole;
-import com.br.receitex_auth.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
