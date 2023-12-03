@@ -16,7 +16,7 @@ public class PacienteService {
     PacienteRepository repository;
 
     public record PacienteRequestDTO(String first_name, String last_name){}
-    public record PacienteResponseDTO(UUID medico_id, String first_name, String last_name){}
+    public record PacienteResponseDTO(UUID paciente_id, String first_name, String last_name){}
     public PacienteResponseDTO buildPacienteToPacienteDTO(Paciente paciente){
         return new PacienteResponseDTO(paciente.getId(), paciente.getFirstName(), paciente.getLastName());
     }

@@ -40,6 +40,7 @@ public class MedicoController {
         return ResponseEntity.ok(medicoService.buildMedicoToMedicoDTO(m));
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/listaPacientes/{id}")
     public ResponseEntity<List<PacienteService.PacienteResponseDTO>> listPatientsByDoctor(@PathVariable("id") UUID id) {
         Medico m = medicoService.findOne(id).get();

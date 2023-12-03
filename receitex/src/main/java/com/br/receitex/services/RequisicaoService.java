@@ -22,6 +22,7 @@ public class RequisicaoService {
         requisicao.setEmissao(data.getEmissao());
         requisicao.setNome_medico(data.getNome_medico());
         requisicao.setNome_paciente(data.getNome_paciente());
+        requisicao.setPaciente_id(data.getPaciente_id());
         repository.save(requisicao);
         return requisicao;
     }

@@ -10,10 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -30,20 +27,22 @@ public class AuthController {
     private AuthRepository authRepository;
     @Autowired
     private UserService userService;
-    record AuthRequestDTO(String username, String password){}
-    record AuthResponseDTO(UUID auth_id, String username){}
+    record AuthRequestDTO(String user_name, String password){}
+    record AuthResponseDTO(UUID auth_id, String user_name){}
     record UserLoginDTO(String token){}
 
     //gerar token de acesso
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthRequestDTO auth){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(auth.username(), auth.password());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(auth.user_name(), auth.password());
         var authData = authenticationManager.authenticate(usernamePassword);
         var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal());
         return ResponseEntity.ok(new UserLoginDTO(token));
     }
 
     //criar usuário e autentificar
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UserService.UserRequestDTO registerData){
         // validar username

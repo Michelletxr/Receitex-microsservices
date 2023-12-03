@@ -19,11 +19,13 @@ import java.util.UUID;
 public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
+    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping()
     public ResponseEntity<Paciente> createPaciente(@RequestBody PacienteService.PacienteRequestDTO paciente){
         Paciente response = pacienteService.createPaciente(paciente);
         return ResponseEntity.ok(response);
     }
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("")
     public ResponseEntity<List<PacienteService.PacienteResponseDTO>> listPacientes() {
         List<Paciente> pacienteList = pacienteService.getPacientes();
@@ -31,6 +33,7 @@ public class PacienteController {
                 .map(p -> pacienteService.buildPacienteToPacienteDTO(p)).toList());
     }
 
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/get/{id}")
     public ResponseEntity<PacienteService.PacienteResponseDTO> getPaciente(@PathVariable("id") UUID id) {
         Paciente p = pacienteService.findOne(id).get();

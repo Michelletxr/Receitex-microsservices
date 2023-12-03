@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class ReceitaController {
@@ -29,6 +30,12 @@ public class ReceitaController {
     @GetMapping("/receitas")
     public List<Receita> getAllDocumentos(){
         return receitaService.getAllDocumentos();
+    }
+
+    @CrossOrigin(origins = "http://localhost:5173")
+    @GetMapping("/receitas/paciente")
+    public List<Receita> getAllDocumentoByPacienteId(@RequestParam UUID id){
+        return receitaService.getDocumentoByPacienteId(id);
     }
 
     @CrossOrigin(origins = "http://localhost:5173")

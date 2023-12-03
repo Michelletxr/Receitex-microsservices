@@ -25,6 +25,7 @@ public class AtestadoService {
         atestado.setVencimento(data.getVencimento());
         atestado.setNome_medico(data.getNome_medico());
         atestado.setNome_paciente(data.getNome_paciente());
+        atestado.setPaciente_id(data.getPaciente_id());
         repository.save(atestado);
         return atestado;
     }

@@ -3,6 +3,7 @@ package com.br.receitex.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class Documento implements Serializable {
@@ -15,6 +16,8 @@ public abstract class Documento implements Serializable {
 
     private String titulo;
     private String descricao;
+
+    private UUID paciente_id;
 
     public Long getId() {
         return id;
@@ -54,5 +57,13 @@ public abstract class Documento implements Serializable {
 
     public void setNome_paciente(String nome_paciente) {
         this.nome_paciente = nome_paciente;
+    }
+
+    public UUID getPaciente_id() {
+        return paciente_id;
+    }
+
+    public void setPaciente_id(UUID paciente_id) {
+        this.paciente_id = paciente_id;
     }
 }

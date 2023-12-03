@@ -6,10 +6,7 @@ import com.br.receitex.models.Receita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 
 @Service
@@ -42,6 +39,7 @@ public class ReceitaService{
         receita.setNome_medico(data.getNome_medico());
         receita.setNome_paciente(data.getNome_paciente());
         receita.setCodido(this.gerarCodigo());
+        receita.setPaciente_id(data.getPaciente_id());
         repository.save(receita);
         return receita;
     }
@@ -89,4 +87,14 @@ public class ReceitaService{
     }
 
 
+    public List<Receita> getDocumentoByPacienteId(UUID id) {
+        List<Receita> receitas = repository.findAll();
+        List<Receita> receitasPaciente = new ArrayList<>();
+        for (Receita r: receitas) {
+            if(r.getPaciente_id().equals(id)){
+                receitasPaciente.add(r);
+            }
+        }
+        return receitas;
+    }
 }
