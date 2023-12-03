@@ -24,6 +24,7 @@ public class AuthModel implements UserDetails {
     String password;
     //referencia para id do usuario
     UUID user_id;
+
     @Builder
     public AuthModel(String userName, String password, UUID user_id){
         this.userName = userName;

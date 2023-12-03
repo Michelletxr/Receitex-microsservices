@@ -37,7 +37,9 @@ public class AuthController {
     public ResponseEntity login(@RequestBody AuthRequestDTO auth){
         var usernamePassword = new UsernamePasswordAuthenticationToken(auth.user_name(), auth.password());
         var authData = authenticationManager.authenticate(usernamePassword);
-        var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal());
+        AuthModel auth_model = (AuthModel) authData.getPrincipal();
+        String fullName = userService.getFullNameUser(auth_model.getUser_id());
+        var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal(), fullName);
         return ResponseEntity.ok(new UserLoginDTO(token));
     }
 

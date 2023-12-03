@@ -5,6 +5,8 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.br.receitex_auth.models.AuthModel;
+import com.br.receitex_auth.repositories.AuthRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,13 +19,16 @@ public class TokenConfig {
 
     @Value("${api.security.token.secret}")
     private String secret;
+    @Autowired
+    private AuthRepository authRepository;
 
-    public String generateToken(AuthModel auth){
+    public String generateToken(AuthModel auth, String user_name){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("auth-receitex")
-                    .withSubject(auth.getUsername())
+                    .withClaim("user_name", user_name)
+                    .withClaim("user_id", String.valueOf(auth.getUser_id()))
                     .withExpiresAt(getExpirationDate())
                     .sign(algorithm);
             return token;
