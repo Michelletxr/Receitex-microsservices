@@ -4,7 +4,10 @@ import com.br.receitex.models.Documento;
 import com.br.receitex.services.DocumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.UUID;
 
 @RequestMapping("/document")
 @RestController
@@ -19,9 +22,9 @@ public class DocumentController {
         return "HELLO";
     }
 
-    @GetMapping
-    public List<Documento> getDocumentos(){
-        return service.getDocumentos();
+    @GetMapping("/paciente/{id}")
+    public Map<String, ArrayList<Documento>> getDocumentosByPacienteId(@PathVariable UUID id){
+        return service.getDocumentosByPacienteId(id);
     }
 
     @GetMapping("/{id}")

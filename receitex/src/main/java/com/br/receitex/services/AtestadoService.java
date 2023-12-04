@@ -3,13 +3,11 @@ package com.br.receitex.services;
 import com.br.receitex.Repositories.AtestadoRepository;
 import com.br.receitex.models.Atestado;
 import com.br.receitex.models.Documento;
+import com.br.receitex.models.Receita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class AtestadoService {
@@ -43,6 +41,17 @@ public class AtestadoService {
 
     public List<Atestado> getAllDocumentos(){
         return repository.findAll();
+    }
+
+    public List<Atestado> getDocumentoByPacienteId(UUID id) {
+        List<Atestado> atestados = repository.findAll();
+        List<Atestado> atestadosPaciente = new ArrayList<>();
+        for (Atestado a: atestados) {
+            if(a.getPaciente_id().equals(id)){
+                atestadosPaciente.add(a);
+            }
+        }
+        return atestadosPaciente;
     }
 
     public void deleteAtestadoById(Long id){

@@ -1,13 +1,16 @@
 package com.br.receitex.services;
 
 import com.br.receitex.Repositories.RequisicaoRepository;
+import com.br.receitex.models.Atestado;
 import com.br.receitex.models.Documento;
 import com.br.receitex.models.Requisicao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class RequisicaoService {
@@ -40,6 +43,17 @@ public class RequisicaoService {
 
     public List<Requisicao> getAllDocumentos(){
         return repository.findAll();
+    }
+
+    public List<Requisicao> getDocumentoByPacienteId(UUID id) {
+        List<Requisicao> requisicaos = repository.findAll();
+        List<Requisicao> requisicaosPaciente = new ArrayList<>();
+        for (Requisicao r: requisicaos) {
+            if(r.getPaciente_id().equals(id)){
+                requisicaosPaciente.add(r);
+            }
+        }
+        return requisicaosPaciente;
     }
 
     public void deleteRequisicaoById(Long id){

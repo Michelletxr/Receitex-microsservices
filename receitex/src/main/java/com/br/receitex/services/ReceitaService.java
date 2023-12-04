@@ -95,6 +95,6 @@ public class ReceitaService{
                 receitasPaciente.add(r);
             }
         }
-        return receitas;
+        return receitasPaciente;
     }
 }
