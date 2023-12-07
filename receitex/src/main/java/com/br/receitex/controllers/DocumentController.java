@@ -16,12 +16,7 @@ public class DocumentController {
     @Autowired
     private DocumentoService service;
 
-    //rota para teste
-    @GetMapping("/hello")
-    public String hello(){
-        return "HELLO";
-    }
-
+    @CrossOrigin(origins = "http://localhost:5173")
     @GetMapping("/paciente/{id}")
     public Map<String, ArrayList<Documento>> getDocumentosByPacienteId(@PathVariable UUID id){
         return service.getDocumentosByPacienteId(id);

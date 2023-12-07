@@ -3,6 +3,7 @@ package com.br.receitex_auth.controllers;
 import com.br.receitex_auth.config.TokenConfig;
 import com.br.receitex_auth.models.AuthModel;
 import com.br.receitex_auth.models.UserBaseModel;
+import com.br.receitex_auth.models.UserRole;
 import com.br.receitex_auth.repositories.AuthRepository;
 import com.br.receitex_auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,8 @@ public class AuthController {
         var authData = authenticationManager.authenticate(usernamePassword);
         AuthModel auth_model = (AuthModel) authData.getPrincipal();
         String fullName = userService.getFullNameUser(auth_model.getUser_id());
-        var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal(), fullName);
+        UserRole role = userService.getRoleUser(auth_model.getUser_id());
+        var token = tokenConfig.generateToken((AuthModel) authData.getPrincipal(), fullName, role);
         return ResponseEntity.ok(new UserLoginDTO(token));
     }
 

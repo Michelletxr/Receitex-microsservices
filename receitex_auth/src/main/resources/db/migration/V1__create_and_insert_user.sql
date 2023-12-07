@@ -15,3 +15,5 @@ VALUES
     (1, '4f6d11c7-82cf-4d6a-a0c3-56a1f79149d1', 'medico', 'João', 'Silva'),
     (1, '9bfb08e7-3ae2-4b8e-b5b5-24f346b30972', 'medico', 'Maria', 'Santos'),
     (0, 'a46d25c1-ec22-4d3b-b9a7-ec5ab3ac2df7', 'paciente', 'Pedro', 'Gomes');
+
+
